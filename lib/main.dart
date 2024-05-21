@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: "Movie DB",
       theme: MainTheme.tmdbTheme,
       initialRoute: 'discover_screen',
-      routes: {'discover_screen': (context) => const DiscoverScreen()},
+      routes: {'discover_screen': (context) => DiscoverScreen()},
     );
   }
 }

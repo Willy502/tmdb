@@ -10,6 +10,7 @@ class MoviesController extends GetxController {
 
   Future getDiscoveredMovies() async {
     final discoveredMovies = await moviesProvider.getDiscoveredMovies();
+    movies.clear();
     movies.addAll(discoveredMovies);
     update();
   }

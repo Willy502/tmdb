@@ -67,7 +67,7 @@ class MoviesWidget extends StatelessWidget {
     return GestureDetector(
       child: movieCard,
       onTap: () {
-        Get.to(const MovieDetailScreen(), arguments: movie);
+        Get.to(() => const MovieDetailScreen(), arguments: movie);
       },
     );
   }

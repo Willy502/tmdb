@@ -1,16 +1,17 @@
 import 'package:debrain_tmdb/controllers/movies_controller.dart';
+import 'package:debrain_tmdb/screens/search_screen.dart';
 import 'package:debrain_tmdb/widgets/movies_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DiscoverScreen extends StatelessWidget {
-  const DiscoverScreen({super.key});
+  DiscoverScreen({super.key});
+
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    MoviesController moviesController = MoviesController();
-
-    Get.put(moviesController);
+    var moviesController = Get.put(MoviesController());
     moviesController.getDiscoveredMovies();
 
     return Scaffold(
@@ -29,6 +30,7 @@ class DiscoverScreen extends StatelessWidget {
           child: Column(
             children: [
               TextField(
+                controller: _searchController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
@@ -39,7 +41,13 @@ class DiscoverScreen extends StatelessWidget {
                   suffixIcon: const Icon(Icons.search),
                 ),
                 onSubmitted: (value) {
-                  moviesController.getSearchedMovie(value);
+                  _searchController.clear();
+                  Get.to(
+                    () => const SearchScreen(),
+                    arguments: value,
+                  )?.then((value) {
+                    moviesController.getDiscoveredMovies();
+                  });
                 },
               ),
               Expanded(

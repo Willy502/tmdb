@@ -1,5 +1,4 @@
 import 'package:debrain_tmdb/controllers/movie_detail_controller.dart';
-import 'package:debrain_tmdb/controllers/movies_controller.dart';
 import 'package:debrain_tmdb/models/movie_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -52,7 +51,8 @@ class MovieDetailScreen extends StatelessWidget {
       ),
       actions: [
         GetBuilder<MovieDetailController>(builder: (controller) {
-          controller.validateFavorite(movie);
+
+          if (controller.isFavorite != true) controller.validateFavorite(movie);
 
           return IconButton(
               onPressed: () => saveFavorite(movie),

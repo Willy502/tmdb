@@ -3,7 +3,6 @@ import 'package:debrain_tmdb/screens/discover_screen.dart';
 import 'package:debrain_tmdb/themes/main_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 
 void main() {
 

@@ -1,5 +1,4 @@
 import 'package:debrain_tmdb/controllers/movies_controller.dart';
-import 'package:debrain_tmdb/models/movie_model.dart';
 import 'package:debrain_tmdb/widgets/movies_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

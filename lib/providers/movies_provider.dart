@@ -33,8 +33,12 @@ class MoviesProvider extends GetConnect {
         {'api_key': _apiKey, 'language': _language, 'query': search});
 
     final resp = await get(url.toString());
-    final movies = Movies.fromJson(resp.body);
 
-    return movies.results;
+    if (resp.body != null) {
+      final movies = Movies.fromJson(resp.body);
+
+      return movies.results;
+    }
+    return [];
   }
 }

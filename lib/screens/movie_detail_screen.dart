@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class MovieDetailScreen extends StatelessWidget {
 
-  
+  const MovieDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +35,12 @@ class MovieDetailScreen extends StatelessWidget {
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
-        title: Text(
-          pelicula.title,
-          style: const TextStyle(color: Colors.white, fontSize: 16.0),
+        title: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            pelicula.title,
+            style: const TextStyle(color: Colors.white, fontSize: 16.0),
+          ),
         ),
         background: FadeInImage(
           placeholder: const AssetImage('assets/loading.gif'),
@@ -71,11 +74,9 @@ class MovieDetailScreen extends StatelessWidget {
             children: <Widget>[
               // TextOverflow evita que se salga de los márgenes
               Text(movie.title,
-                  style: Theme.of(context).textTheme.titleLarge,
-                  overflow: TextOverflow.ellipsis),
+                  style: Theme.of(context).textTheme.titleLarge),
               Text(movie.originalTitle,
-                  style: Theme.of(context).textTheme.titleMedium,
-                  overflow: TextOverflow.ellipsis),
+                  style: Theme.of(context).textTheme.titleMedium),
               Row(
                 children: <Widget>[
                   const Icon(Icons.star_border),

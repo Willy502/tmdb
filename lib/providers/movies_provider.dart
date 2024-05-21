@@ -4,7 +4,7 @@ import 'package:get/get_connect.dart';
 class MoviesProvider extends GetConnect {
   final String _apiKey = 'ff2c1d20fa50006ed38c9a704944dd3c';
   final String _url = 'api.themoviedb.org';
-  final String _language = 'es-ES';
+  final String _language = 'en-EN';
 
   @override
   void onInit() {

@@ -1,44 +1,15 @@
 import 'dart:convert';
+import 'package:isar/isar.dart';
 
-class Movies {
-  int page;
-  List<Movie> results;
-  int totalPages;
-  int totalResults;
+part 'movie_model.g.dart';
 
-  Movies({
-    required this.page,
-    required this.results,
-    required this.totalPages,
-    required this.totalResults,
-  });
-
-  factory Movies.fromRawJson(String str) => Movies.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Movies.fromJson(Map<String, dynamic> json) => Movies(
-        page: json["page"],
-        results:
-            List<Movie>.from(json["results"].map((x) => Movie.fromJson(x))),
-        totalPages: json["total_pages"],
-        totalResults: json["total_results"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "page": page,
-        "results": List<dynamic>.from(results.map((x) => x.toJson())),
-        "total_pages": totalPages,
-        "total_results": totalResults,
-      };
-}
-
+@collection
 class Movie {
   String? uniqueId;
   bool adult;
   String? backdropPath;
   List<int> genreIds;
-  int id;
+  Id id;
   String originalLanguage;
   String originalTitle;
   String overview;

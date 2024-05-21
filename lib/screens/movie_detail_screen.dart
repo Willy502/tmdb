@@ -1,15 +1,16 @@
+import 'package:debrain_tmdb/controllers/movies_controller.dart';
 import 'package:debrain_tmdb/models/movie_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MovieDetailScreen extends StatelessWidget {
-
   const MovieDetailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final Movie movie = ModalRoute.of(context)!
-        .settings
-        .arguments as Movie; // Enviar parametros mediante pushnamed
+    final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
+
+    var controller = Get.find<MoviesController>();
 
     return Scaffold(
       body: CustomScrollView(
@@ -26,7 +27,7 @@ class MovieDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget _createAppBar(Movie pelicula) {
+  Widget _createAppBar(Movie movie) {
     return SliverAppBar(
       elevation: 2.0,
       backgroundColor: Colors.indigo,
@@ -38,17 +39,22 @@ class MovieDetailScreen extends StatelessWidget {
         title: Container(
           margin: const EdgeInsets.symmetric(horizontal: 10),
           child: Text(
-            pelicula.title,
+            movie.title,
             style: const TextStyle(color: Colors.white, fontSize: 16.0),
           ),
         ),
         background: FadeInImage(
           placeholder: const AssetImage('assets/loading.gif'),
-          image: NetworkImage(pelicula.getBackdropImg()),
+          image: NetworkImage(movie.getBackdropImg()),
           fadeInDuration: const Duration(milliseconds: 150),
           fit: BoxFit.cover,
         ),
       ),
+      actions: [
+        IconButton(
+            onPressed: () => saveFavorite(movie),
+            icon: const Icon(Icons.favorite_border))
+      ],
     );
   }
 
@@ -73,8 +79,7 @@ class MovieDetailScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               // TextOverflow evita que se salga de los márgenes
-              Text(movie.title,
-                  style: Theme.of(context).textTheme.titleLarge),
+              Text(movie.title, style: Theme.of(context).textTheme.titleLarge),
               Text(movie.originalTitle,
                   style: Theme.of(context).textTheme.titleMedium),
               Row(
@@ -107,5 +112,10 @@ class MovieDetailScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void saveFavorite(Movie movie) {
+    var controller = Get.find<MoviesController>();
+    controller.saveFavoriteMovie(movie);
   }
 }

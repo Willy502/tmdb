@@ -1,4 +1,5 @@
 import 'package:debrain_tmdb/controllers/movies_controller.dart';
+import 'package:debrain_tmdb/screens/favorites_screen.dart';
 import 'package:debrain_tmdb/screens/search_screen.dart';
 import 'package:debrain_tmdb/widgets/movies_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class DiscoverScreen extends StatelessWidget {
             IconButton(
                 icon: const Icon(Icons.favorite),
                 onPressed: () {
-                  //showSearch(context: context, delegate: DataSearch());
+                  Get.to(() => const FavoritesScreen())?.then((value) => moviesController.getDiscoveredMovies());
                 })
           ],
         ),

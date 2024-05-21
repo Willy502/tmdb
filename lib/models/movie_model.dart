@@ -20,6 +20,7 @@ class Movie {
   bool video;
   double voteAverage;
   int voteCount;
+  bool isFavorite = false;
 
   Movie({
     required this.adult,

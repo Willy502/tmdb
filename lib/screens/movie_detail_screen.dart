@@ -1,3 +1,4 @@
+import 'package:debrain_tmdb/controllers/movie_detail_controller.dart';
 import 'package:debrain_tmdb/controllers/movies_controller.dart';
 import 'package:debrain_tmdb/models/movie_model.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class MovieDetailScreen extends StatelessWidget {
     final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
 
     var controller = Get.find<MoviesController>();
-
+    Get.put(MovieDetailController());
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -51,9 +52,13 @@ class MovieDetailScreen extends StatelessWidget {
         ),
       ),
       actions: [
-        IconButton(
-            onPressed: () => saveFavorite(movie),
-            icon: const Icon(Icons.favorite_border))
+        GetBuilder<MovieDetailController>(builder: (controller) {
+          controller.isFavorite = movie.isFavorite;
+          return IconButton(
+              onPressed: () => saveFavorite(movie),
+              icon: Icon(Icons.favorite,
+                  color: controller.isFavorite ? Colors.red : Colors.black45));
+        }),
       ],
     );
   }
@@ -117,5 +122,7 @@ class MovieDetailScreen extends StatelessWidget {
   void saveFavorite(Movie movie) {
     var controller = Get.find<MoviesController>();
     controller.saveFavoriteMovie(movie);
+
+    Get.find<MovieDetailController>().toggleFavorite(movie);
   }
 }

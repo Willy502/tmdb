@@ -32,58 +32,63 @@ const MovieSchema = CollectionSchema(
       name: r'genreIds',
       type: IsarType.longList,
     ),
-    r'originalLanguage': PropertySchema(
+    r'isFavorite': PropertySchema(
       id: 3,
+      name: r'isFavorite',
+      type: IsarType.bool,
+    ),
+    r'originalLanguage': PropertySchema(
+      id: 4,
       name: r'originalLanguage',
       type: IsarType.string,
     ),
     r'originalTitle': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'originalTitle',
       type: IsarType.string,
     ),
     r'overview': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'overview',
       type: IsarType.string,
     ),
     r'popularity': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'popularity',
       type: IsarType.double,
     ),
     r'posterPath': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'posterPath',
       type: IsarType.string,
     ),
     r'releaseDate': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'releaseDate',
       type: IsarType.dateTime,
     ),
     r'title': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'title',
       type: IsarType.string,
     ),
     r'uniqueId': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'uniqueId',
       type: IsarType.string,
     ),
     r'video': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'video',
       type: IsarType.bool,
     ),
     r'voteAverage': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'voteAverage',
       type: IsarType.double,
     ),
     r'voteCount': PropertySchema(
-      id: 13,
+      id: 14,
       name: r'voteCount',
       type: IsarType.long,
     )
@@ -143,17 +148,18 @@ void _movieSerialize(
   writer.writeBool(offsets[0], object.adult);
   writer.writeString(offsets[1], object.backdropPath);
   writer.writeLongList(offsets[2], object.genreIds);
-  writer.writeString(offsets[3], object.originalLanguage);
-  writer.writeString(offsets[4], object.originalTitle);
-  writer.writeString(offsets[5], object.overview);
-  writer.writeDouble(offsets[6], object.popularity);
-  writer.writeString(offsets[7], object.posterPath);
-  writer.writeDateTime(offsets[8], object.releaseDate);
-  writer.writeString(offsets[9], object.title);
-  writer.writeString(offsets[10], object.uniqueId);
-  writer.writeBool(offsets[11], object.video);
-  writer.writeDouble(offsets[12], object.voteAverage);
-  writer.writeLong(offsets[13], object.voteCount);
+  writer.writeBool(offsets[3], object.isFavorite);
+  writer.writeString(offsets[4], object.originalLanguage);
+  writer.writeString(offsets[5], object.originalTitle);
+  writer.writeString(offsets[6], object.overview);
+  writer.writeDouble(offsets[7], object.popularity);
+  writer.writeString(offsets[8], object.posterPath);
+  writer.writeDateTime(offsets[9], object.releaseDate);
+  writer.writeString(offsets[10], object.title);
+  writer.writeString(offsets[11], object.uniqueId);
+  writer.writeBool(offsets[12], object.video);
+  writer.writeDouble(offsets[13], object.voteAverage);
+  writer.writeLong(offsets[14], object.voteCount);
 }
 
 Movie _movieDeserialize(
@@ -167,18 +173,19 @@ Movie _movieDeserialize(
     backdropPath: reader.readStringOrNull(offsets[1]),
     genreIds: reader.readLongList(offsets[2]) ?? [],
     id: id,
-    originalLanguage: reader.readString(offsets[3]),
-    originalTitle: reader.readString(offsets[4]),
-    overview: reader.readString(offsets[5]),
-    popularity: reader.readDouble(offsets[6]),
-    posterPath: reader.readStringOrNull(offsets[7]),
-    releaseDate: reader.readDateTime(offsets[8]),
-    title: reader.readString(offsets[9]),
-    video: reader.readBool(offsets[11]),
-    voteAverage: reader.readDouble(offsets[12]),
-    voteCount: reader.readLong(offsets[13]),
+    originalLanguage: reader.readString(offsets[4]),
+    originalTitle: reader.readString(offsets[5]),
+    overview: reader.readString(offsets[6]),
+    popularity: reader.readDouble(offsets[7]),
+    posterPath: reader.readStringOrNull(offsets[8]),
+    releaseDate: reader.readDateTime(offsets[9]),
+    title: reader.readString(offsets[10]),
+    video: reader.readBool(offsets[12]),
+    voteAverage: reader.readDouble(offsets[13]),
+    voteCount: reader.readLong(offsets[14]),
   );
-  object.uniqueId = reader.readStringOrNull(offsets[10]);
+  object.isFavorite = reader.readBool(offsets[3]);
+  object.uniqueId = reader.readStringOrNull(offsets[11]);
   return object;
 }
 
@@ -196,26 +203,28 @@ P _movieDeserializeProp<P>(
     case 2:
       return (reader.readLongList(offset) ?? []) as P;
     case 3:
-      return (reader.readString(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 4:
       return (reader.readString(offset)) as P;
     case 5:
       return (reader.readString(offset)) as P;
     case 6:
-      return (reader.readDouble(offset)) as P;
-    case 7:
-      return (reader.readStringOrNull(offset)) as P;
-    case 8:
-      return (reader.readDateTime(offset)) as P;
-    case 9:
       return (reader.readString(offset)) as P;
-    case 10:
-      return (reader.readStringOrNull(offset)) as P;
-    case 11:
-      return (reader.readBool(offset)) as P;
-    case 12:
+    case 7:
       return (reader.readDouble(offset)) as P;
+    case 8:
+      return (reader.readStringOrNull(offset)) as P;
+    case 9:
+      return (reader.readDateTime(offset)) as P;
+    case 10:
+      return (reader.readString(offset)) as P;
+    case 11:
+      return (reader.readStringOrNull(offset)) as P;
+    case 12:
+      return (reader.readBool(offset)) as P;
     case 13:
+      return (reader.readDouble(offset)) as P;
+    case 14:
       return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -650,6 +659,16 @@ extension MovieQueryFilter on QueryBuilder<Movie, Movie, QFilterCondition> {
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterFilterCondition> isFavoriteEqualTo(
+      bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'isFavorite',
+        value: value,
       ));
     });
   }
@@ -1734,6 +1753,18 @@ extension MovieQuerySortBy on QueryBuilder<Movie, Movie, QSortBy> {
     });
   }
 
+  QueryBuilder<Movie, Movie, QAfterSortBy> sortByIsFavorite() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isFavorite', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterSortBy> sortByIsFavoriteDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isFavorite', Sort.desc);
+    });
+  }
+
   QueryBuilder<Movie, Movie, QAfterSortBy> sortByOriginalLanguage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'originalLanguage', Sort.asc);
@@ -1904,6 +1935,18 @@ extension MovieQuerySortThenBy on QueryBuilder<Movie, Movie, QSortThenBy> {
     });
   }
 
+  QueryBuilder<Movie, Movie, QAfterSortBy> thenByIsFavorite() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isFavorite', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Movie, Movie, QAfterSortBy> thenByIsFavoriteDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isFavorite', Sort.desc);
+    });
+  }
+
   QueryBuilder<Movie, Movie, QAfterSortBy> thenByOriginalLanguage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'originalLanguage', Sort.asc);
@@ -2057,6 +2100,12 @@ extension MovieQueryWhereDistinct on QueryBuilder<Movie, Movie, QDistinct> {
     });
   }
 
+  QueryBuilder<Movie, Movie, QDistinct> distinctByIsFavorite() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'isFavorite');
+    });
+  }
+
   QueryBuilder<Movie, Movie, QDistinct> distinctByOriginalLanguage(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -2154,6 +2203,12 @@ extension MovieQueryProperty on QueryBuilder<Movie, Movie, QQueryProperty> {
   QueryBuilder<Movie, List<int>, QQueryOperations> genreIdsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'genreIds');
+    });
+  }
+
+  QueryBuilder<Movie, bool, QQueryOperations> isFavoriteProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'isFavorite');
     });
   }
 

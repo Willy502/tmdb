@@ -1,8 +1,14 @@
-import 'package:debrain_tmdb/screens/splash_screen.dart';
+import 'package:debrain_tmdb/providers/movies_provider.dart';
+import 'package:debrain_tmdb/screens/discover_screen.dart';
+import 'package:debrain_tmdb/themes/main_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 
 void main() {
+
+  Get.lazyPut(() => MoviesProvider());
+
   runApp(const MyApp());
 }
 
@@ -15,10 +21,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Movie DB",
-      initialRoute: 'spash',
-      routes: {
-        'spash' : (context) => const SplashScreen()
-      },
+      theme: MainTheme.tmdbTheme,
+      initialRoute: 'discover_screen',
+      routes: {'discover_screen': (context) => const DiscoverScreen()},
     );
   }
 }

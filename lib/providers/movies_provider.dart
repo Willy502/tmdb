@@ -12,13 +12,12 @@ class MoviesProvider extends GetConnect {
   }
 
   Future<List<Movie>> getDiscoveredMovies() async {
-    final url = Uri.https(_url, '3/movie/discover', {
-      'api_key' : _apiKey,
-      'language' : _language
-    });
+    final url = Uri.https(
+        _url, '3/discover/movie', {'api_key': _apiKey, 'language': _language});
 
     final resp = await get(url.toString());
+    final movies = Movies.fromJson(resp.body);
 
-    return [];
+    return movies.results;
   }
 }

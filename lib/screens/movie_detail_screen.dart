@@ -10,9 +10,8 @@ class MovieDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
-
-    var controller = Get.find<MoviesController>();
     Get.put(MovieDetailController());
+
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -53,7 +52,8 @@ class MovieDetailScreen extends StatelessWidget {
       ),
       actions: [
         GetBuilder<MovieDetailController>(builder: (controller) {
-          controller.isFavorite = movie.isFavorite;
+          controller.validateFavorite(movie);
+
           return IconButton(
               onPressed: () => saveFavorite(movie),
               icon: Icon(Icons.favorite,
@@ -120,9 +120,6 @@ class MovieDetailScreen extends StatelessWidget {
   }
 
   void saveFavorite(Movie movie) {
-    var controller = Get.find<MoviesController>();
-    controller.saveFavoriteMovie(movie);
-
     Get.find<MovieDetailController>().toggleFavorite(movie);
   }
 }

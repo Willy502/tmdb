@@ -37,4 +37,15 @@ class MoviesController extends GetxController {
     movies.addAll(iMovies);
     update();
   }
+
+  Future<Movie?> getFavoriteById(Movie movie) async {
+    return moviesProvider.isar.movies.get(movie.id);
+  }
+
+  deleteFavorite(Movie movie) async {
+    await moviesProvider.isar.writeTxn(() async {
+      await moviesProvider.isar.movies.delete(movie.id);
+    });
+    update();
+  }
 }

@@ -6,13 +6,18 @@ class MoviesController extends GetxController {
   final movies = <Movie>[];
   final moviesProvider = Get.find<MoviesProvider>();
 
-  MoviesController() {
-    getDiscoveredMovies();
-  }
+  MoviesController();
 
   Future getDiscoveredMovies() async {
     final discoveredMovies = await moviesProvider.getDiscoveredMovies();
     movies.addAll(discoveredMovies);
+    update();
+  }
+
+  Future getSearchedMovie(String search) async {
+    final searchedMovies = await moviesProvider.getSearchedMovie(search);
+    movies.clear();
+    movies.addAll(searchedMovies);
     update();
   }
 }

@@ -1,14 +1,13 @@
 import 'package:debrain_tmdb/models/movie_model.dart';
 import 'package:debrain_tmdb/screens/movie_detail_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MoviesWidget extends StatelessWidget {
   final List<Movie> movies;
 
-  const MoviesWidget({Key? key, required this.movies}) : super(key: key);
+  const MoviesWidget({super.key, required this.movies});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,11 @@ class MoviesWidget extends StatelessWidget {
                   height: 170,
                   width: double.infinity,
                   placeholder: const AssetImage('assets/loading.gif'),
-                  image: NetworkImage(movie.getPosterImg()),
+                  image: NetworkImage(movie
+                      .getPosterImg()), //NetworkImage(movie.getPosterImg()),
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset('assets/loading.gif');
+                  },
                   fit: BoxFit.cover,
                 ),
               )),
@@ -64,7 +67,7 @@ class MoviesWidget extends StatelessWidget {
     return GestureDetector(
       child: movieCard,
       onTap: () {
-        Get.to(MovieDetailScreen(), arguments: movie);
+        Get.to(const MovieDetailScreen(), arguments: movie);
       },
     );
   }

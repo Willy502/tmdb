@@ -20,4 +20,14 @@ class MoviesProvider extends GetConnect {
 
     return movies.results;
   }
+
+  Future<List<Movie>> getSearchedMovie(String search) async {
+    final url = Uri.https(
+        _url, '3/search/movie', {'api_key': _apiKey, 'language': _language, 'query': search});
+
+    final resp = await get(url.toString());
+    final movies = Movies.fromJson(resp.body);
+
+    return movies.results;
+  }
 }

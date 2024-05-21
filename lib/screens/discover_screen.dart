@@ -8,37 +8,45 @@ class DiscoverScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(MoviesController());
+    MoviesController moviesController = MoviesController();
+
+    Get.put(moviesController);
+    moviesController.getDiscoveredMovies();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Movies'),
-        actions: <Widget>[
-          IconButton(icon: const Icon(Icons.favorite), onPressed: () {
-            //showSearch(context: context, delegate: DataSearch());
-          })
-        ],
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-        children: [
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30.0),
-                borderSide: BorderSide.none
+        appBar: AppBar(
+          title: const Text('Movies'),
+          actions: <Widget>[
+            IconButton(
+                icon: const Icon(Icons.favorite),
+                onPressed: () {
+                  //showSearch(context: context, delegate: DataSearch());
+                })
+          ],
+        ),
+        body: Container(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      borderSide: BorderSide.none),
+                  filled: true,
+                  hintText: 'Search Movie...',
+                  fillColor: Colors.white,
+                  suffixIcon: const Icon(Icons.search),
+                ),
+                onSubmitted: (value) {
+                  moviesController.getSearchedMovie(value);
+                },
               ),
-              filled: true,
-              hintText: 'Search Movie...',
-              fillColor: Colors.white,
-              suffixIcon: const Icon(Icons.search)
-            ),
+              Expanded(
+                  child: GetBuilder<MoviesController>(
+                      builder: (_) => MoviesWidget(movies: _.movies)))
+            ],
           ),
-          Expanded(child: GetBuilder<MoviesController>(builder: (_) => MoviesWidget(movies: _.movies)))
-        ],
-      ),
-      )
-    );
+        ));
   }
 }

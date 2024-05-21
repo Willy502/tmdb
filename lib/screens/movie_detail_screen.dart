@@ -98,7 +98,7 @@ class MovieDetailScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(movie.releaseDate.toString()),
-          Text(movie.originalLanguage.name),
+          Text(movie.originalLanguage),
           const SizedBox(height: 10.0),
           Text(
             movie.overview,
